@@ -1,2 +1,7 @@
 pytest
 pytest-cov
+fastapi
+uvicorn
+requests
+python-dotenv
+jinja2
