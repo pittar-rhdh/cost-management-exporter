@@ -6,6 +6,10 @@ A simple FastAPI web application that retrieves and displays OpenShift cost info
 
 *   **Secure Authentication**: Uses Red Hat Service Account (Client Credentials Grant) for authentication.
 *   **Cost Visualization**: Aggregates and displays OpenShift costs by cluster for the current month.
+*   **Session Persistence**: Users stay logged in across page reloads until explicitly logging out or session expiry.
+*   **Refresh Capability**: Easily refresh cost data without re-entering credentials.
+*   **Raw JSON View**: Inspect the full API response in a raw JSON format for debugging or detailed analysis.
+*   **Logout**: Securely clear the session and return to the login screen.
 *   **User-Friendly Interface**: Provides a web-based login form to enter credentials securely.
 *   **Zero Configuration**: No complex environment setup required; just plug in your credentials and go.
 
