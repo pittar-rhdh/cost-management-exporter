@@ -60,17 +60,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for item in costs.data %}
-                            <tr>
-                                <td>{{ item.cluster if item.cluster else 'Unknown Cluster' }}</td>
-                                {% if item.values %}
-                                    <td class="text-end">
-                                        {{ "%.2f"|format(item.values[0].cost.total.value) }} {{ item.values[0].cost.total.units }}
-                                    </td>
-                                {% else %}
-                                    <td class="text-end">N/A</td>
-                                {% endif %}
-                            </tr>
+                        {% for month_data in costs.data %}
+                            {% for item in month_data.clusters %}
+                                <tr>
+                                    <td>{{ item.cluster if item.cluster else 'Unknown Cluster' }} ({{ month_data.date }})</td>
+                                    {% if item.values %}
+                                        <td class="text-end">
+                                            {{ "%.2f"|format(item.values[0].cost.total.value) }} {{ item.values[0].cost.total.units }}
+                                        </td>
+                                    {% else %}
+                                        <td class="text-end">N/A</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
                         {% endfor %}
                     </tbody>
                 </table>
