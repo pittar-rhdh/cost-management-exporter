@@ -1,25 +1,20 @@
-import os
 import requests
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class AuthError(Exception):
     pass
 
-def get_access_token():
+def get_access_token(client_id, client_secret):
     """
-    Exchanges the Offline Token for an Access Token.
+    Exchanges Client ID and Secret for an Access Token using Client Credentials Grant.
     """
-    offline_token = os.getenv("REDHAT_OFFLINE_TOKEN")
-    if not offline_token:
-        raise AuthError("REDHAT_OFFLINE_TOKEN not found in environment variables.")
+    if not client_id or not client_secret:
+        raise AuthError("Client ID and Client Secret are required.")
 
     url = "https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token"
     payload = {
-        "grant_type": "refresh_token",
-        "client_id": "cloud-services",
-        "refresh_token": offline_token
+        "grant_type": "client_credentials",
+        "client_id": client_id,
+        "client_secret": client_secret
     }
     
     try:

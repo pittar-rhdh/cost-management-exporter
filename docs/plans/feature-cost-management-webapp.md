@@ -38,23 +38,30 @@ Build a Python Web Application using FastAPI to query the Red Hat Cost Managemen
 -   [ ] Create `.env.example` template.
 
 ### 2. Core Logic (API Client)
--   [ ] Create `services/` directory.
--   [ ] Implement `services/auth.py` (or similar):
-    -   Function to exchange Offline Token for Access Token.
--   [ ] Implement `services/cost_api.py`:
-    -   Function to query OpenShift costs with specific grouping and date filtering.
+-   [ ] Update `services/auth.py`:
+    -   Change `get_access_token` to accept `client_id` and `client_secret`.
+    -   Use the "Service Account" flow (Client Credentials Grant).
+        -   Token URL: `https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token`
+        -   Grant Type: `client_credentials`
+-   [ ] Update `services/cost_api.py`:
+    -   Function to query OpenShift costs needs to accept the `access_token` as an argument (since it's no longer global/env-based).
 
 ### 3. Web Application
--   [ ] Rename/Update `app.py` or create `main.py` as the entry point.
--   [ ] Configure FastAPI with static files (if needed) and templates.
--   [ ] Create `templates/index.html`:
-    -   Simple Bootstrap table to display Cluster Name and Cost.
--   [ ] Implement GET `/` route to orchestrate the data fetching and rendering.
+-   [ ] Update `templates/index.html`:
+    -   Add a Login Form (Client ID, Secret) if not authenticated.
+    -   Display Cost Table if authenticated.
+-   [ ] Update `main.py`:
+    -   Add POST `/login` route to handle form submission.
+    -   Validate credentials by attempting to get a token.
+    -   If successful, render the cost view (passing the token/data).
+    -   Ideally, use `FastAPI` sessions or just pass data in the context for this simple "stateless" approach (or re-fetch token on reload if we don't store it securely).
+    -   *Decision*: For simplicity and security (avoiding complex session management for now), we will pass the credentials/token in the request loop or just re-authenticate. **Better approach**: Use a simple cookie or keep it in the rendered HTML as a hidden field (less secure) or just ask user to re-enter.
+    -   *Refined Decision*: The user asked to "enter these values in the UI". We will have a form. When submitted, we fetch the data and display it. We won't implement a persistent login session for this V1 to keep it simple. Every refresh might require re-entry or we can use a basic browser cookie.
+    -   Let's go with: **Form POST -> Fetch Data -> Render Page with Data**. If they refresh, they see the form again (unless we add browser-side persistence). This is simplest and meets "enter values in UI".
 
 ### 4. Testing & Verification
--   [ ] Write unit tests for the API client (mocking external calls).
--   [ ] Write integration test for the FastAPI route.
--   [ ] Run the application and manually verify with live credentials (if available) or mocks.
+-   [ ] Update unit tests for `auth.py` to test Client Credentials flow.
+-   [ ] Update integration tests.
 
 ## APIs Used
 -   **Auth**: `https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token`

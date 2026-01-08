@@ -1,14 +1,15 @@
 import requests
-from .auth import get_access_token
 
 API_BASE_URL = "https://console.redhat.com/api/cost-management/v1/reports/openshift/costs/"
 
-def get_openshift_costs_by_cluster():
+def get_openshift_costs_by_cluster(token):
     """
     Queries the Red Hat Cost Management API for OpenShift costs,
     aggregated by cluster for the current month.
+    
+    Args:
+        token (str): The OAuth2 access token.
     """
-    token = get_access_token()
     headers = {
         "Authorization": f"Bearer {token}",
         "Accept": "application/json"
