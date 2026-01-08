@@ -1,0 +1,14 @@
+# Project Rules
+
+1.  **Project Configuration**:
+    *   This is a Python 3.12 project
+    *   **IMPORTANT**: Do not change the version of Python.
+
+2.  **Workflow**:
+    *   **Git Branching**:
+        *   Create a new git branch for each new "task".
+        *   **Naming Convention**: Branch names must start with either `feature/` or `fix/` (e.g., `feature/new-login-page`, `fix/memory-leak`).
+        *   **Descriptiveness**: The rest of the branch name must be descriptive of the task.
+    *   **Testing**: All new functionality must have good unit tests. Verify that tests pass before marking a task as complete.
+    *   **Task Planning**: All todos for a task should be kept track of in a file named after the branch (e.g. if a branch name is "feature/add-login", the file should be called "feature-add-login.md") and it should be created in the "docs/plans" directory.
+    *   **Completion**: At the end of a task, ensure all updates have been committed to the feature branch.

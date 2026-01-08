@@ -1,0 +1,78 @@
+schemaVersion: 2.2.2
+attributes:
+  controller.devfile.io/storage-type: per-workspace
+metadata:
+  name: "cost-management-exporter"
+  provider: Red Hat
+  displayName: Vibe Coding with Python
+  description: Python with Roo Code for Vibe Coding.
+  tags:
+    - Python
+    - AI
+    - Vibe Coding
+    - Roo/Cline
+  projectType: Python
+  language: Python
+projects:
+  - name: "cost-management-exporter"
+    git:
+      remotes:
+        origin: "https://github.com/pittar-rhdh/cost-management-exporter"
+      checkoutFrom:
+        revision: "main"
+        remote: origin
+components:
+  - name: py
+    container:
+      image: registry.redhat.io/devspaces/udi-base-rhel10:latest
+      args: ['tail', '-f', '/dev/null']
+      mountSources: true
+      endpoints:
+        - name: https-python
+          targetPort: 5000
+          protocol: https
+        - exposure: none
+          name: debug
+          targetPort: 5858
+      env:
+        - name: DEBUG_PORT
+          value: '5858'
+      cpuLimit: '4'
+      cpuRequest: '1'
+      memoryLimit: '8G'
+      memoryRequest: '8G'
+commands:
+  - id: pip-install-requirements
+    exec:
+      commandLine: python -m ensurepip && pip3 install -r requirements.txt
+      workingDir: ${PROJECT_SOURCE}
+      group:
+        kind: build
+        isDefault: true
+      component: py
+  - id: test-app
+    exec:
+      commandLine: 'python -m pytest --cov=app'
+      workingDir: ${PROJECT_SOURCE}
+      component: py
+      group:
+        kind: run
+        isDefault: true
+  - id: run-app
+    exec:
+      commandLine: 'python app.py'
+      workingDir: ${PROJECT_SOURCE}
+      component: py
+      group:
+        kind: run
+        isDefault: true
+  - id: debug-py
+    exec:
+      commandLine: 'pip install debugpy && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} app.py'
+      workingDir: ${PROJECT_SOURCE}
+      component: py
+      group:
+        kind: debug
+events:
+  postStart:
+    - pip-install-requirements

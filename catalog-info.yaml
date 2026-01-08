@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: cost-management-exporter     # set value defined in the (scaffolding/golden path) template
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/developer     # set value defined in the (scaffolding/golden path) template
