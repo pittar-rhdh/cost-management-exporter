@@ -48,10 +48,13 @@
         {% if costs and costs.data %}
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3>Detailed View</h3>
-                <a href="/" class="btn btn-outline-secondary btn-sm">Clear & Logout</a>
+                <div>
+                     <a href="/dashboard" class="btn btn-primary btn-sm me-2">Refresh Data</a>
+                     <a href="/logout" class="btn btn-outline-secondary btn-sm">Clear & Logout</a>
+                </div>
             </div>
 
-            <div class="table-responsive">
+            <div class="table-responsive mb-4">
                 <table class="table table-bordered table-striped bg-white shadow-sm">
                     <thead class="table-primary">
                         <tr>
@@ -64,9 +67,10 @@
                             {% for item in month_data.clusters %}
                                 <tr>
                                     <td>{{ item.cluster if item.cluster else 'Unknown Cluster' }} ({{ month_data.date }})</td>
-                                    {% if item.values %}
+                                    {# Explicitly check if 'values' is in item (dict check) to avoid method lookup issue #}
+                                    {% if 'values' in item %}
                                         <td class="text-end">
-                                            {{ "%.2f"|format(item.values[0].cost.total.value) }} {{ item.values[0].cost.total.units }}
+                                            {{ "%.2f"|format(item['values'][0].cost.total.value) }} {{ item['values'][0].cost.total.units }}
                                         </td>
                                     {% else %}
                                         <td class="text-end">N/A</td>
@@ -77,6 +81,16 @@
                     </tbody>
                 </table>
             </div>
+
+            <details class="mb-4">
+                <summary class="text-primary" style="cursor: pointer; font-weight: bold;">Show Raw JSON Data</summary>
+                <div class="card mt-2">
+                    <div class="card-body bg-light">
+                        <pre style="max-height: 400px; overflow-y: auto;"><code>{{ json_output }}</code></pre>
+                    </div>
+                </div>
+            </details>
+
         {% elif costs and not costs.data %}
              <div class="alert alert-info" role="alert">
                 No cost data available for the current month.
