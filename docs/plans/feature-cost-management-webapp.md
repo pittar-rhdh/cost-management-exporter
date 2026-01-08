@@ -60,8 +60,17 @@ Build a Python Web Application using FastAPI to query the Red Hat Cost Managemen
     -   Let's go with: **Form POST -> Fetch Data -> Render Page with Data**. If they refresh, they see the form again (unless we add browser-side persistence). This is simplest and meets "enter values in UI".
 
 ### 4. Testing & Verification
--   [ ] Update unit tests for `auth.py` to test Client Credentials flow.
--   [ ] Update integration tests.
+-   [x] Update unit tests for `auth.py` to test Client Credentials flow.
+-   [x] Update integration tests.
+
+### 5. Documentation
+-   [ ] Create `README.md` with:
+    -   Project Description
+    -   Prerequisites (Python, Red Hat Service Account)
+    -   Installation Steps
+    -   Running the App
+    -   Running Tests
+
 
 ## APIs Used
 -   **Auth**: `https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token`
