@@ -3,7 +3,7 @@ kind: Component
 metadata:
   name: cost-management-exporter     # set value defined in the (scaffolding/golden path) template
   annotations:
-    backstage.io/source-location: url:https://github.com/pittar-rhdh/cost-management-exporter.git
+    backstage.io/source-location: url:https://github.com/pittar-rhdh/cost-management-exporter/
     backstage.io/techdocs-ref: dir:.
   tags:
     - python
