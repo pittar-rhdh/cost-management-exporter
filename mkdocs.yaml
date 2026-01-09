@@ -1,0 +1,11 @@
+site_name: "OpenShift Cost Management Exporter"
+
+plugins:
+  - techdocs-core
+
+docs_dir: docs
+
+# Note for content editors, edit only the section below
+nav:
+  - Documentation: index.md
+  - Coding Plans: plans.md

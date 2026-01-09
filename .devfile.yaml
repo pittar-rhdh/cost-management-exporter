@@ -29,7 +29,7 @@ components:
       mountSources: true
       endpoints:
         - name: https-python
-          targetPort: 5000
+          targetPort: 8000
           protocol: https
         - exposure: none
           name: debug
@@ -52,7 +52,7 @@ commands:
       component: py
   - id: test-app
     exec:
-      commandLine: 'python -m pytest --cov=app'
+      commandLine: 'python3 -m pytest --cov=app'
       workingDir: ${PROJECT_SOURCE}
       component: py
       group:
@@ -60,7 +60,7 @@ commands:
         isDefault: true
   - id: run-app
     exec:
-      commandLine: 'python app.py'
+      commandLine: 'python3 main.py'
       workingDir: ${PROJECT_SOURCE}
       component: py
       group:
@@ -68,7 +68,7 @@ commands:
         isDefault: true
   - id: debug-py
     exec:
-      commandLine: 'pip install debugpy && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} app.py'
+      commandLine: 'pip install debugpy && python3 -m debugpy --listen 0.0.0.0:${DEBUG_PORT} main.py'
       workingDir: ${PROJECT_SOURCE}
       component: py
       group:

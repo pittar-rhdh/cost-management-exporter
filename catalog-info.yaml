@@ -2,6 +2,17 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: cost-management-exporter     # set value defined in the (scaffolding/golden path) template
+  annotations:
+    backstage.io/source-location: url:https://github.com/pittar-rhdh/cost-management-exporter.git
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - python
+    - vibe
+    - roo
+  links:
+    - url: https://devspaces.apps.prime.pitt.ca/#https://github.com/pittar-rhdh/cost-management-exporter.git
+      title: Dev Spaces (VScode)
+      icon: user
 spec:
   type: service
   lifecycle: experimental
