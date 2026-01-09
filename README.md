@@ -2,6 +2,8 @@
 
 A simple FastAPI web application that retrieves and displays OpenShift cost information from the Red Hat Cost Management API.
 
+[Cost Management API Docs](https://developers.redhat.com/api-catalog/api/cost-management#content-operations)
+
 ## Features
 
 *   **Secure Authentication**: Uses Red Hat Service Account (Client Credentials Grant) for authentication.
